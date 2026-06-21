@@ -25,29 +25,6 @@ function bottleSVG(family, size = "100%") {
     <circle cx="30" cy="4" r="2" fill="${tint}"/>
   </svg>`;
 }
-
-const LISTINGS = [
-  {
-    id: "chanel-no5",
-    maison: "Chanel",
-    nom: "No.5 Eau de Parfum",
-    famille: "floral",
-    familleLabel: "Floral poudré",
-    volume: 100,
-    fill: 95,
-    prix: 195,
-    prixNeuf: 280,
-    badge: "new",
-    badgeLabel: "Nouveau",
-    avatar: "MB",
-    vendeur: "Marie B.",
-    note: 4.9,
-    avis: 47,
-    ville: "Lyon",
-    desc: "Un jus iconique, millésimé 2021. Boîte et facture d'origine conservées. Non ouvert pendant trois ans, stocké à l'abri de la lumière dans son coffret. État collector, jamais vaporisé plus de cinq fois.",
-    tags: ["100ml", "95% plein", "Floral poudré", "Boîte incluse"]
-  },
-  {
     id: "creed-aventus",
     maison: "Creed",
     nom: "Aventus",
