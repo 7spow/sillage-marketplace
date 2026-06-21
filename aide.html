@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Centre d'aide — Sillage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+<div class="announce-bar"><p>Paiement sécurisé par Stripe · Fonds débloqués à la livraison confirmée · Commission 8% seulement</p></div>
+
+<header class="site-header">
+  <nav class="nav-wrap">
+    <a href="index.html" class="logo"><span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none"><path d="M12 2C9 6 7 9 7 13a5 5 0 0 0 10 0c0-4-2-7-5-11Z" stroke="currentColor" stroke-width="1.3"/></svg></span><span>Sillage</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="catalogue.html">Catalogue</a></li>
+      <li><a href="index.html#maisons">Maisons</a></li>
+      <li><a href="catalogue.html?tag=rares">Éditions rares</a></li>
+      <li><a href="vendre.html">Vendre</a></li>
+      <li><a href="aide.html">Aide</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" aria-label="Favoris"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20s-7-4.6-9.5-9C.7 7.6 2.4 4 6 4c2 0 3.4 1 4.5 2.4C11.6 5 13 4 15 4c3.6 0 5.3 3.6 3.5 7-2.5 4.4-9.5 9-9.5 9Z"/></svg></button>
+      <a href="compte.html" class="icon-btn" aria-label="Mon compte"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="3.4"/><path d="M4.5 20c1.4-3.6 4.5-5.5 7.5-5.5s6.1 1.9 7.5 5.5"/></svg></a>
+      <a href="vendre.html" class="btn btn-primary btn-sm">Vendre un parfum</a>
+    </div>
+  </nav>
+</header>
+
+<div class="page-header" style="text-align:center;max-width:680px;margin:0 auto">
+  <p class="eyebrow center"><span class="eyebrow-line"></span>Centre d'aide</p>
+  <h1 style="font-size:clamp(1.9rem,3.4vw,2.5rem)">Comment pouvons-nous vous aider ?</h1>
+</div>
+
+<div class="simple-page">
+
+  <h2 id="protection" style="margin:2rem 0 0.5rem">Protection acheteur</h2>
+  <div class="faq-item">
+    <h3>Comment fonctionne le paiement séquestré ?</h3>
+    <p>Lorsque vous achetez un parfum, votre paiement est traité par Stripe et conservé en séquestre. Le vendeur ne reçoit les fonds qu'après votre confirmation de réception, ou automatiquement après 5 jours si aucun litige n'est signalé.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Que se passe-t-il si l'article ne correspond pas à l'annonce ?</h3>
+    <p>Vous disposez de 48h après réception pour signaler un problème. Notre équipe de médiation examine les photos et la description d'origine pour trancher, et peut déclencher un remboursement partiel ou total.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Les flacons sont-ils authentifiés ?</h3>
+    <p>Les vendeurs s'engagent contractuellement sur l'authenticité de leurs articles. Pour les pièces rares ou de valeur, un contrôle d'authenticité supplémentaire peut être demandé avant expédition.</p>
+  </div>
+
+  <h2 id="vendeur" style="margin:2.5rem 0 0.5rem">Guide vendeur</h2>
+  <div class="faq-item">
+    <h3>Comment déposer une annonce ?</h3>
+    <p>Rendez-vous sur la page "Vendre", ajoutez vos photos, renseignez l'état du flacon et son prix. La publication est gratuite et instantanée après connexion de votre compte Stripe.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Quand suis-je payé ?</h3>
+    <p>Dès que l'acheteur confirme la réception (ou automatiquement après 5 jours), le virement est déclenché vers votre compte Stripe connecté, généralement sous 48h.</p>
+  </div>
+
+  <h2 id="commissions" style="margin:2.5rem 0 0.5rem">Commissions</h2>
+  <div class="faq-item">
+    <h3>Quels sont les frais ?</h3>
+    <p>Sillage prélève une commission de 8% sur le prix de vente, uniquement lorsque la transaction est conclue. Aucun frais n'est appliqué pour déposer ou maintenir une annonce en ligne.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Y a-t-il des frais acheteur ?</h3>
+    <p>Un frais de service de 3% (minimum 2€) est ajouté au prix affiché lors du paiement, pour financer la protection acheteur et le séquestre des fonds.</p>
+  </div>
+
+  <h2 id="authentification" style="margin:2.5rem 0 0.5rem">Authentification</h2>
+  <div class="faq-item">
+    <h3>Comment obtenir le badge "Authentifié" ?</h3>
+    <p>Pour les flacons de plus de 200€, vous pouvez demander une vérification par nos experts avant publication. Ils examinent les photos haute résolution du flacon, du batch code et de l'emballage.</p>
+  </div>
+
+  <h2 id="litiges" style="margin:2.5rem 0 0.5rem">Litiges</h2>
+  <div class="faq-item">
+    <h3>Comment signaler un problème ?</h3>
+    <p>Depuis votre espace "Mes achats", ouvrez la transaction concernée et cliquez sur "Signaler un problème". Notre équipe vous répond sous 24h ouvrées.</p>
+  </div>
+
+  <h2 id="contact" style="margin:2.5rem 0 0.5rem">Contact</h2>
+  <div class="faq-item" style="border-bottom:none">
+    <h3>Une autre question ?</h3>
+    <p>Écrivez-nous à <strong style="color:var(--white)">aide@sillage.fr</strong>, notre équipe répond en moyenne sous 4h en semaine.</p>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand"><a href="index.html" class="logo"><span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M12 2C9 6 7 9 7 13a5 5 0 0 0 10 0c0-4-2-7-5-11Z" stroke="currentColor" stroke-width="1.3"/></svg></span><span>Sillage</span></a><p>La place de marché des passionnés de parfum, entre particuliers et en toute confiance.</p></div>
+    <div class="footer-col"><h4>Explorer</h4><ul><li><a href="catalogue.html">Toutes les annonces</a></li><li><a href="index.html#maisons">Maisons de niche</a></li></ul></div>
+    <div class="footer-col"><h4>Vendre</h4><ul><li><a href="vendre.html">Déposer une annonce</a></li><li><a href="aide.html#commissions">Commissions</a></li></ul></div>
+    <div class="footer-col"><h4>Aide</h4><ul><li><a href="aide.html">Centre d'aide</a></li><li><a href="aide.html#contact">Contact</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 Sillage · Paris, France</span><div class="secure-badges"><span>🔒 SSL</span><span>Stripe</span><span>RGPD ✓</span></div></div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
