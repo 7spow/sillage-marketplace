@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vendre un parfum — Sillage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+<div class="announce-bar"><p>Paiement sécurisé par Stripe · Fonds débloqués à la livraison confirmée · Commission 8% seulement</p></div>
+
+<header class="site-header">
+  <nav class="nav-wrap">
+    <a href="index.html" class="logo">
+      <span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none"><path d="M12 2C9 6 7 9 7 13a5 5 0 0 0 10 0c0-4-2-7-5-11Z" stroke="currentColor" stroke-width="1.3"/></svg></span>
+      <span>Sillage</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="catalogue.html">Catalogue</a></li>
+      <li><a href="index.html#maisons">Maisons</a></li>
+      <li><a href="catalogue.html?tag=rares">Éditions rares</a></li>
+      <li><a href="vendre.html">Vendre</a></li>
+      <li><a href="aide.html">Aide</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" aria-label="Favoris"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20s-7-4.6-9.5-9C.7 7.6 2.4 4 6 4c2 0 3.4 1 4.5 2.4C11.6 5 13 4 15 4c3.6 0 5.3 3.6 3.5 7-2.5 4.4-9.5 9-9.5 9Z"/></svg></button>
+      <a href="compte.html" class="icon-btn" aria-label="Mon compte"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="3.4"/><path d="M4.5 20c1.4-3.6 4.5-5.5 7.5-5.5s6.1 1.9 7.5 5.5"/></svg></a>
+      <a href="vendre.html" class="btn btn-primary btn-sm">Vendre un parfum</a>
+    </div>
+  </nav>
+</header>
+
+<div class="page-header" style="text-align:center;max-width:680px;margin:0 auto">
+  <p class="eyebrow center"><span class="eyebrow-line"></span>Trois minutes suffisent</p>
+  <h1 style="font-size:clamp(1.9rem,3.4vw,2.5rem)">Déposer une annonce</h1>
+  <p style="color:var(--text-secondary);margin-top:0.8rem;font-size:0.95rem">Gratuit jusqu'à la vente. Commission de 8% prélevée uniquement au succès.</p>
+</div>
+
+<div class="sell-form-page">
+  <div class="sell-form-card">
+    <form id="sellForm">
+
+      <div class="form-section-title">Photos du flacon</div>
+      <div class="upload-zone" id="uploadZone">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.4" style="margin:0 auto 10px;display:block"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m4 17 5-5 4 4 3-3 4 4"/></svg>
+        <span id="uploadLabel">Glissez vos photos ici ou cliquez pour parcourir (4 photos recommandées)</span>
+        <input type="file" id="fileInput" multiple accept="image/*" style="display:none">
+      </div>
+
+      <div class="form-section-title">Informations sur le parfum</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Maison</label>
+          <select class="form-select" id="fMaison" required>
+            <option value="">Choisir…</option>
+            <option>Chanel</option><option>Dior</option><option>Creed</option>
+            <option>Maison Francis Kurkdjian</option><option>Tom Ford</option>
+            <option>Serge Lutens</option><option>Amouage</option><option>Guerlain</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Nom du parfum</label>
+          <input type="text" class="form-input" id="fNom" placeholder="Ex : No.5, Aventus…" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Volume</label>
+          <select class="form-select" id="fVolume" required>
+            <option value="">Choisir…</option>
+            <option>15ml</option><option>30ml</option><option>50ml</option>
+            <option>75ml</option><option>100ml</option><option>Autre</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Niveau de remplissage</label>
+          <select class="form-select" id="fFill" required>
+            <option value="">Choisir…</option>
+            <option value="100">100% (neuf, jamais ouvert)</option>
+            <option value="90">90–99%</option>
+            <option value="75">75–89%</option>
+            <option value="50">50–74%</option>
+            <option value="25">Moins de 50%</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Famille olfactive</label>
+        <select class="form-select" id="fFamille" required>
+          <option value="">Choisir…</option>
+          <option value="floral">Floral</option>
+          <option value="oriental">Oriental</option>
+          <option value="boise">Boisé</option>
+          <option value="fougere">Fougère</option>
+          <option value="ambre">Ambré</option>
+          <option value="hesperide">Hespéridé</option>
+          <option value="epice">Épicé</option>
+          <option value="aquatique">Aquatique</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Description</label>
+        <textarea class="form-input" id="fDesc" rows="4" placeholder="État du flacon, origine, accessoires inclus (boîte, facture)…" required></textarea>
+        <p class="form-hint">Soyez précis : une description honnête évite les litiges après-vente.</p>
+      </div>
+
+      <div class="form-section-title">Prix</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Prix de vente souhaité</label>
+          <input type="number" class="form-input" id="fPrix" placeholder="Ex : 150" min="1" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Prix neuf (boutique)</label>
+          <input type="number" class="form-input" id="fPrixNeuf" placeholder="Ex : 220" min="1">
+        </div>
+      </div>
+      <p class="form-hint" id="commissionHint" style="margin:-0.6rem 0 1.2rem">Vous recevrez environ — € après commission de 8%.</p>
+
+      <div class="form-section-title">Paiement</div>
+      <div class="stripe-box">
+        <span class="stripe-logo">stripe</span>
+        <div class="stripe-box-text">
+          <strong id="stripeStatus">Connectez Stripe pour recevoir vos paiements</strong>
+          <span>Virement automatique sous 48h après confirmation de réception par l'acheteur</span>
+        </div>
+        <button type="button" class="btn btn-secondary btn-sm" id="stripeConnectBtn" style="margin-left:auto;flex-shrink:0">Connecter</button>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block" id="submitBtn">Publier l'annonce · Gratuit</button>
+    </form>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="logo"><span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M12 2C9 6 7 9 7 13a5 5 0 0 0 10 0c0-4-2-7-5-11Z" stroke="currentColor" stroke-width="1.3"/></svg></span><span>Sillage</span></a>
+      <p>La place de marché des passionnés de parfum, entre particuliers et en toute confiance.</p>
+    </div>
+    <div class="footer-col"><h4>Explorer</h4><ul><li><a href="catalogue.html">Toutes les annonces</a></li><li><a href="index.html#maisons">Maisons de niche</a></li><li><a href="catalogue.html?tag=rares">Éditions limitées</a></li><li><a href="catalogue.html?tag=vintage">Vintage</a></li></ul></div>
+    <div class="footer-col"><h4>Vendre</h4><ul><li><a href="vendre.html">Déposer une annonce</a></li><li><a href="aide.html#vendeur">Guide vendeur</a></li><li><a href="aide.html#commissions">Commissions</a></li><li><a href="aide.html#authentification">Authentification</a></li></ul></div>
+    <div class="footer-col"><h4>Aide</h4><ul><li><a href="aide.html">Centre d'aide</a></li><li><a href="aide.html#protection">Protection acheteur</a></li><li><a href="aide.html#litiges">Litiges</a></li><li><a href="aide.html#contact">Contact</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Sillage · Paris, France</span>
+    <div class="secure-badges"><span>🔒 SSL</span><span>Stripe</span><span>RGPD ✓</span></div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script src="js/vendre.js"></script>
+</body>
+</html>
