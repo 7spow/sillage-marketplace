@@ -1,7 +1,7 @@
 /* ============================================
    SILLAGE — main.js
    Logique partagée : nav mobile, modales, toast,
-   wishlist, checkout Stripe (simulation front).
+   wishlist (persistant), checkout Stripe (simulation front).
    ============================================ */
 
 /* ---------- Nav mobile ---------- */
@@ -35,70 +35,93 @@ function showToast(message) {
   toastTimer = setTimeout(() => toast.classList.remove('show'), 2600);
 }
 
-/* ---------- Wishlist (localStorage non utilisé : sessionState mémoire) ---------- */
-const wishlistState = new Set();
+/* ---------- Wishlist locale en mémoire, synchronisée avec le store ---------- */
+let wishlistCache = new Set();
+let wishlistLoaded = false;
 
-function isWishlisted(id) { return wishlistState.has(id); }
+async function ensureWishlistLoaded() {
+  if (wishlistLoaded) return;
+  const ids = await getWishlistIds();
+  wishlistCache = new Set(ids);
+  wishlistLoaded = true;
+}
 
-function toggleWishlist(id, btnEl) {
-  if (wishlistState.has(id)) {
-    wishlistState.delete(id);
-    btnEl && btnEl.classList.remove('active');
-    showToast('Retiré des favoris');
-  } else {
-    wishlistState.add(id);
-    btnEl && btnEl.classList.add('active');
+function isWishlisted(id) { return wishlistCache.has(id); }
+
+async function toggleWishlist(id, btnEl) {
+  await ensureWishlistLoaded();
+  const nowWishlisted = await toggleWishlistId(id);
+  if (nowWishlisted) {
+    wishlistCache.add(id);
     showToast('Ajouté aux favoris ♡');
+  } else {
+    wishlistCache.delete(id);
+    showToast('Retiré des favoris');
   }
+  if (btnEl) {
+    btnEl.classList.toggle('active', nowWishlisted);
+    btnEl.innerHTML = heartIcon(nowWishlisted);
+  }
+  document.dispatchEvent(new CustomEvent('wishlist-changed', { detail: { id, wishlisted: nowWishlisted } }));
 }
 
 const heartIcon = (filled) => `<svg viewBox="0 0 24 24" width="16" height="16" fill="${filled ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="1.6"><path d="M12 20s-7-4.6-9.5-9C.7 7.6 2.4 4 6 4c2 0 3.4 1 4.5 2.4C11.6 5 13 4 15 4c3.6 0 5.3 3.6 3.5 7-2.5 4.4-9.5 9-9.5 9Z"/></svg>`;
 
-/* ---------- Building blocks: carte produit ---------- */
+/* ---------- Carte produit ---------- */
 function renderCard(listing) {
   const wished = isWishlisted(listing.id);
+  const volumeTag = listing.volume ? `<span class="p-meta-tag">${listing.volume}ml</span>` : '';
+  const priceOrig = listing.prixNeuf ? `<span class="p-price-orig">${formatPrice(listing.prixNeuf)} neuf</span>` : '';
   return `
-  <article class="p-card" onclick="window.location.href='produit.html?id=${listing.id}'">
+  <article class="p-card" onclick="window.location.href='produit.html?id=${encodeURIComponent(listing.id)}'">
     <div class="p-card-img">
-      <div class="p-card-img-glow" style="background:radial-gradient(circle, ${FAMILY_GLOW[listing.famille]}, transparent 70%)"></div>
+      <div class="p-card-img-glow" style="background:radial-gradient(circle, ${familyTint(listing.famille)}, transparent 70%)"></div>
       <div class="p-card-bottle">${bottleSVG(listing.famille, '100%')}</div>
-      ${listing.badge ? `<span class="p-badge b-${listing.badge}">${listing.badgeLabel}</span>` : ''}
       <button class="p-wishlist ${wished ? 'active' : ''}" aria-label="Ajouter aux favoris" onclick="event.stopPropagation(); toggleWishlist('${listing.id}', this)">
         ${heartIcon(wished)}
       </button>
     </div>
     <div class="p-card-body">
-      <div class="p-maison">${listing.maison}</div>
-      <div class="p-name">${listing.nom}</div>
+      <div class="p-maison">${escapeHTML(listing.maison) || 'Maison non précisée'}</div>
+      <div class="p-name">${escapeHTML(listing.nom)}</div>
       <div class="p-meta">
-        <span class="p-meta-tag">${listing.volume}ml</span>
+        ${volumeTag}
         <span class="p-meta-tag">${listing.fill}% plein</span>
-        <span class="p-meta-tag">${listing.familleLabel}</span>
+        <span class="p-meta-tag">${escapeHTML(listing.familleLabel)}</span>
       </div>
       <div class="p-footer">
         <div class="p-price-block">
           <strong>${formatPrice(listing.prix)}</strong>
-          <span class="p-price-orig">${formatPrice(listing.prixNeuf)} neuf</span>
+          ${priceOrig}
         </div>
         <div class="p-seller">
           <div class="p-avatar">${listing.avatar}</div>
-          <span class="p-rating"><span class="star">★</span> ${listing.note.toFixed(1)}</span>
+          <span class="p-rating">${listing.avis > 0 ? `<span class="star">★</span> ${listing.note.toFixed(1)}` : 'Nouveau vendeur'}</span>
         </div>
       </div>
     </div>
   </article>`;
 }
 
+function escapeHTML(str) {
+  if (str == null) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
 /* ---------- Checkout Stripe (simulation) ---------- */
 let checkoutListing = null;
 
-function openCheckout(id) {
-  checkoutListing = findListing(id);
-  if (!checkoutListing) return;
+async function openCheckout(id) {
+  checkoutListing = await getListing(id);
+  if (!checkoutListing) { showToast('Cette annonce n\'est plus disponible.'); return; }
   ensureCheckoutModal();
   const fee = Math.round(checkoutListing.prix * 0.03 + 2);
   document.getElementById('checkoutThumb').innerHTML = bottleSVG(checkoutListing.famille, '100%');
-  document.getElementById('checkoutMaison').textContent = checkoutListing.maison;
+  document.getElementById('checkoutMaison').textContent = checkoutListing.maison || 'Maison non précisée';
   document.getElementById('checkoutName').textContent = checkoutListing.nom;
   document.getElementById('checkoutPrice').textContent = formatPrice(checkoutListing.prix);
   document.getElementById('checkoutFee').textContent = formatPrice(fee);
@@ -207,3 +230,6 @@ document.addEventListener('keydown', (e) => {
     document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
   }
 });
+
+/* ---------- Chargement initial du cache wishlist (best effort, non bloquant) ---------- */
+ensureWishlistLoaded();
